@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.config import settings
-from app.core import logger
+from app.core import FRISException, fris_exception_handler, logger
 
 
 @asynccontextmanager
@@ -27,8 +27,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_exception_handler(FRISException, fris_exception_handler)
+
 
 @app.get("/")
+
 def read_root() -> dict[str, str]:
     """Retrieve basic application information and status.
 
