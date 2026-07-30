@@ -2,9 +2,11 @@
 
 from fastapi import FastAPI
 
+from app.config import settings
+
 app = FastAPI(
-    title="Financial Risk Intelligence System",
-    version="1.0.0",
+    title=settings.app_name,
+    version=settings.version,
 )
 
 
@@ -16,8 +18,8 @@ def read_root() -> dict[str, str]:
         dict[str, str]: Basic application metadata including name, version, and status.
     """
     return {
-        "name": app.title,
-        "version": app.version,
+        "name": settings.app_name,
+        "version": settings.version,
         "status": "ok",
     }
 
@@ -30,4 +32,5 @@ def health_check() -> dict[str, str]:
         dict[str, str]: Service status indicating that the application is running.
     """
     return {"status": "healthy"}
+
 
