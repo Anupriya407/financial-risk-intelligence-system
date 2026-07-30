@@ -1,0 +1,5 @@
+ app/core/__init__.py     | 2 +-
+ app/core/lifespan.py     | 18 ++++++++++++++++++
+ app/main.py              | 6 +++---
+ 3 files changed, 21 insertions(+), 5 deletions(-)
+ create mode 100644 app/core/lifespan.py
