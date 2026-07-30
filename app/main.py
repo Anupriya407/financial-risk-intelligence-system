@@ -31,3 +31,4 @@ app = FastAPI(
 app.add_exception_handler(FRISException, fris_exception_handler)
 
 app.include_router(health_router)
+
