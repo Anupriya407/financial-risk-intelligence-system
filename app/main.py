@@ -5,7 +5,6 @@ from fastapi import FastAPI
 from app.api import health_router
 from app.config import settings
 from app.core import FRISException, fris_exception_handler, lifespan
-from app.core.logger import logger
 
 app = FastAPI(
     title=settings.app_name,

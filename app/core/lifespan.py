@@ -7,6 +7,7 @@ from fastapi import FastAPI
 
 from app.core.logger import logger
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Manage application startup and shutdown lifespan events.
