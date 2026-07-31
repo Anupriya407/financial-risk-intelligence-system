@@ -1,6 +1,47 @@
-[tool.uv.dependencies]
-sqlalchemy = "*"
-alembic = "*"
-psycopg[binary] = "*"
+[project]
+name = "financial-risk-intelligence-system"
+version = "0.1.0"
+description = "Enterprise Financial Risk Intelligence Platform built with FastAPI, SQLAlchemy, and Machine Learning."
+readme = "README.md"
+authors = [
+    { name = "Anupriya Maity", email = "maityanup9892@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.18.5",
+    "fastapi>=0.141.1",
+    "psycopg[binary]>=3.3.4",
+    "pydantic-settings>=2.14.2",
+    "sqlalchemy>=2.0.51",
+    "uvicorn>=0.52.0",
+]
 
-# Other existing configurations...
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.15.2",
+    "pre-commit>=4.6.1",
+    "pytest>=9.1.1",
+    "ruff>=0.16.0",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["UP046"]
+
+[tool.ruff.lint.per-file-ignores]
+"alembic/env.py" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

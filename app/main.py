@@ -1,4 +1,7 @@
-"""Main entry point for the Financial Risk Intelligence System (FRIS) FastAPI application."""
+"""
+Main entry point for the Financial Risk Intelligence System (FRIS)
+FastAPI application.
+"""
 
 from fastapi import FastAPI
 

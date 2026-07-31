@@ -17,7 +17,9 @@ async def fris_exception_handler(request: Request, exc: FRISException) -> JSONRe
     Returns:
         JSONResponse: Clean HTTP error response with status code 500.
     """
-    logger.error("FRISException encountered on path %s: %s", request.url.path, exc.message)
+    logger.error(
+        "FRISException encountered on path %s: %s", request.url.path, exc.message
+    )
     return JSONResponse(
         status_code=500,
         content={"detail": exc.message},
