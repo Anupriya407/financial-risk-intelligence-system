@@ -22,9 +22,7 @@ class CompanyService:
         )
 
         if existing_company is not None:
-            raise ValueError(
-                f"Company with ticker '{company.ticker_symbol}' already exists."
-            )
+            raise ValueError(f"Company with ticker '{company.ticker_symbol}' already exists.")
 
         return self.company_repository.create(company)
 
@@ -70,14 +68,27 @@ class CompanyService:
 
     def update_company(
         self,
-        company: Company,
+        company_id: int,
+        company_data: Company,
     ) -> Company:
         """Update a company."""
 
-        existing_company = self.company_repository.get_by_id(company.id)
+        company = self.company_repository.get_by_id(company_id)
 
-        if existing_company is None:
+        if company is None:
             raise ValueError("Company not found.")
+
+        existing_company = self.company_repository.get_by_ticker(
+            company_data.ticker_symbol,
+        )
+
+        if existing_company is not None and existing_company.id != company_id:
+            raise ValueError(f"Company with ticker '{company_data.ticker_symbol}' already exists.")
+
+        company.company_name = company_data.company_name
+        company.ticker_symbol = company_data.ticker_symbol
+        company.industry = company_data.industry
+        company.country = company_data.country
 
         return self.company_repository.update(company)
 
@@ -93,3 +104,10 @@ class CompanyService:
             raise ValueError("Company not found.")
 
         self.company_repository.delete(company)
+
+    def get_all_companies(
+        self,
+    ) -> list[Company]:
+        """Retrieve all companies."""
+
+        return self.company_repository.get_all()

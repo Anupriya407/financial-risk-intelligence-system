@@ -23,9 +23,7 @@ class RiskAssessmentRepository(BaseRepository[RiskAssessment]):
     ) -> list[RiskAssessment]:
         """Retrieve all risk assessments for a company."""
 
-        statement = select(RiskAssessment).where(
-            RiskAssessment.company_id == company_id
-        )
+        statement = select(RiskAssessment).where(RiskAssessment.company_id == company_id)
 
         return list(self.db.scalars(statement).all())
 
@@ -35,9 +33,7 @@ class RiskAssessmentRepository(BaseRepository[RiskAssessment]):
     ) -> list[RiskAssessment]:
         """Retrieve all risk assessments with a specific risk level."""
 
-        statement = select(RiskAssessment).where(
-            RiskAssessment.risk_level == risk_level
-        )
+        statement = select(RiskAssessment).where(RiskAssessment.risk_level == risk_level)
 
         return list(self.db.scalars(statement).all())
 

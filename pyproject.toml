@@ -33,11 +33,13 @@ dev = [
 
 [tool.ruff]
 target-version = "py312"
-line-length = 88
-
+line-length = 120
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
-ignore = ["UP046"]
+ignore = [
+    "UP046",
+    "B008",
+]
 
 [tool.ruff.lint.per-file-ignores]
 "alembic/env.py" = ["E402"]

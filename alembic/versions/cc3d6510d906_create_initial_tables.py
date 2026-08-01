@@ -29,12 +29,8 @@ def upgrade() -> None:
         sa.Column("industry", sa.String(length=100), nullable=False),
         sa.Column("country", sa.String(length=100), nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
-        sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
+        sa.Column("created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
+        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("ticker_symbol"),
     )
@@ -45,12 +41,8 @@ def upgrade() -> None:
         sa.Column("fiscal_year", sa.Integer(), nullable=False),
         sa.Column("statement_type", sa.String(length=50), nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
-        sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
+        sa.Column("created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
+        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
         sa.ForeignKeyConstraint(
             ["company_id"],
             ["companies.id"],
@@ -66,12 +58,8 @@ def upgrade() -> None:
         sa.Column("return_on_equity", sa.Float(), nullable=False),
         sa.Column("net_profit_margin", sa.Float(), nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
-        sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
+        sa.Column("created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
+        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
         sa.ForeignKeyConstraint(
             ["financial_statement_id"],
             ["financial_statements.id"],
@@ -86,12 +74,8 @@ def upgrade() -> None:
         sa.Column("risk_level", sa.String(length=50), nullable=False),
         sa.Column("model_version", sa.String(length=50), nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
-        sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
+        sa.Column("created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
+        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
         sa.ForeignKeyConstraint(
             ["company_id"],
             ["companies.id"],
@@ -111,12 +95,8 @@ def upgrade() -> None:
         sa.Column("model_version", sa.String(length=50), nullable=False),
         sa.Column("prediction_metadata", sa.JSON(), nullable=False),
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
-        sa.Column(
-            "updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False
-        ),
+        sa.Column("created_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
+        sa.Column("updated_at", sa.DateTime(), server_default=sa.text("now()"), nullable=False),
         sa.ForeignKeyConstraint(
             ["risk_assessment_id"],
             ["risk_assessments.id"],

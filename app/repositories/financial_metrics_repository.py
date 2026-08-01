@@ -23,9 +23,7 @@ class FinancialMetricsRepository(BaseRepository[FinancialMetrics]):
     ) -> FinancialMetrics | None:
         """Retrieve financial metrics for a financial statement."""
 
-        statement = select(FinancialMetrics).where(
-            FinancialMetrics.financial_statement_id == financial_statement_id
-        )
+        statement = select(FinancialMetrics).where(FinancialMetrics.financial_statement_id == financial_statement_id)
 
         return self.db.scalars(statement).first()
 
@@ -35,9 +33,7 @@ class FinancialMetricsRepository(BaseRepository[FinancialMetrics]):
     ) -> list[FinancialMetrics]:
         """Retrieve financial metrics with a minimum current ratio."""
 
-        statement = select(FinancialMetrics).where(
-            FinancialMetrics.current_ratio >= minimum_ratio
-        )
+        statement = select(FinancialMetrics).where(FinancialMetrics.current_ratio >= minimum_ratio)
 
         return list(self.db.scalars(statement).all())
 
@@ -47,9 +43,7 @@ class FinancialMetricsRepository(BaseRepository[FinancialMetrics]):
     ) -> list[FinancialMetrics]:
         """Retrieve financial metrics below a maximum debt-to-equity ratio."""
 
-        statement = select(FinancialMetrics).where(
-            FinancialMetrics.debt_to_equity_ratio <= maximum_ratio
-        )
+        statement = select(FinancialMetrics).where(FinancialMetrics.debt_to_equity_ratio <= maximum_ratio)
 
         return list(self.db.scalars(statement).all())
 
@@ -58,8 +52,6 @@ class FinancialMetricsRepository(BaseRepository[FinancialMetrics]):
     ) -> list[FinancialMetrics]:
         """Retrieve financial metrics with a positive net profit margin."""
 
-        statement = select(FinancialMetrics).where(
-            FinancialMetrics.net_profit_margin > 0
-        )
+        statement = select(FinancialMetrics).where(FinancialMetrics.net_profit_margin > 0)
 
         return list(self.db.scalars(statement).all())

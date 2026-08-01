@@ -23,9 +23,7 @@ class FinancialStatementRepository(BaseRepository[FinancialStatement]):
     ) -> list[FinancialStatement]:
         """Retrieve all financial statements for a company."""
 
-        statement = select(FinancialStatement).where(
-            FinancialStatement.company_id == company_id
-        )
+        statement = select(FinancialStatement).where(FinancialStatement.company_id == company_id)
 
         return list(self.db.scalars(statement).all())
 
@@ -35,9 +33,7 @@ class FinancialStatementRepository(BaseRepository[FinancialStatement]):
     ) -> list[FinancialStatement]:
         """Retrieve all financial statements for a fiscal year."""
 
-        statement = select(FinancialStatement).where(
-            FinancialStatement.fiscal_year == fiscal_year
-        )
+        statement = select(FinancialStatement).where(FinancialStatement.fiscal_year == fiscal_year)
 
         return list(self.db.scalars(statement).all())
 
@@ -47,9 +43,7 @@ class FinancialStatementRepository(BaseRepository[FinancialStatement]):
     ) -> list[FinancialStatement]:
         """Retrieve all financial statements by statement type."""
 
-        statement = select(FinancialStatement).where(
-            FinancialStatement.statement_type == statement_type
-        )
+        statement = select(FinancialStatement).where(FinancialStatement.statement_type == statement_type)
 
         return list(self.db.scalars(statement).all())
 
