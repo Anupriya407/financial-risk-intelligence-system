@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from app.api.v1.schemas.company import (
     CompanyCreate,
@@ -55,12 +55,6 @@ def get_company(
 
     company = company_service.get_company_by_id(company_id)
 
-    if company is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Company with ID {company_id} not found.",
-        )
-
     return CompanyResponse.model_validate(company)
 
 
@@ -102,16 +96,10 @@ def update_company(
         country=company_data.country,
     )
 
-    try:
-        updated_company = company_service.update_company(
-            company_id,
-            company,
-        )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    updated_company = company_service.update_company(
+        company_id,
+        company,
+    )
 
     return CompanyResponse.model_validate(updated_company)
 
@@ -128,10 +116,4 @@ def delete_company(
 ) -> None:
     """Delete an existing company."""
 
-    try:
-        company_service.delete_company(company_id)
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    company_service.delete_company(company_id)

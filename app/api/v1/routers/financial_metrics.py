@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from app.api.v1.schemas.financial_metrics import (
     FinancialMetricsCreate,
@@ -34,15 +34,17 @@ def create_financial_metrics(
     """Create financial metrics."""
 
     financial_metrics = FinancialMetrics(
-        financial_statement_id=(financial_metrics_data.financial_statement_id),
+        financial_statement_id=financial_metrics_data.financial_statement_id,
         current_ratio=financial_metrics_data.current_ratio,
-        debt_to_equity_ratio=(financial_metrics_data.debt_to_equity_ratio),
-        return_on_assets=(financial_metrics_data.return_on_assets),
-        return_on_equity=(financial_metrics_data.return_on_equity),
-        net_profit_margin=(financial_metrics_data.net_profit_margin),
+        debt_to_equity_ratio=financial_metrics_data.debt_to_equity_ratio,
+        return_on_assets=financial_metrics_data.return_on_assets,
+        return_on_equity=financial_metrics_data.return_on_equity,
+        net_profit_margin=financial_metrics_data.net_profit_margin,
     )
 
-    created_metrics = financial_metrics_service.create_financial_metrics(financial_metrics)
+    created_metrics = financial_metrics_service.create_financial_metrics(
+        financial_metrics,
+    )
 
     return FinancialMetricsResponse.model_validate(created_metrics)
 
@@ -60,13 +62,11 @@ def get_financial_metrics(
 ) -> FinancialMetricsResponse:
     """Retrieve financial metrics."""
 
-    financial_metrics = financial_metrics_service.get_financial_metrics_by_id(financial_metrics_id)
-
-    if financial_metrics is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Financial metrics not found.",
+    financial_metrics = (
+        financial_metrics_service.get_financial_metrics_by_id(
+            financial_metrics_id,
         )
+    )
 
     return FinancialMetricsResponse.model_validate(financial_metrics)
 
@@ -85,7 +85,10 @@ def get_all_financial_metrics(
 
     financial_metrics = financial_metrics_service.get_all_financial_metrics()
 
-    return [FinancialMetricsResponse.model_validate(metric) for metric in financial_metrics]
+    return [
+        FinancialMetricsResponse.model_validate(metric)
+        for metric in financial_metrics
+    ]
 
 
 @router.put(
@@ -103,24 +106,18 @@ def update_financial_metrics(
     """Update financial metrics."""
 
     financial_metrics = FinancialMetrics(
-        financial_statement_id=(financial_metrics_data.financial_statement_id),
+        financial_statement_id=financial_metrics_data.financial_statement_id,
         current_ratio=financial_metrics_data.current_ratio,
-        debt_to_equity_ratio=(financial_metrics_data.debt_to_equity_ratio),
-        return_on_assets=(financial_metrics_data.return_on_assets),
-        return_on_equity=(financial_metrics_data.return_on_equity),
-        net_profit_margin=(financial_metrics_data.net_profit_margin),
+        debt_to_equity_ratio=financial_metrics_data.debt_to_equity_ratio,
+        return_on_assets=financial_metrics_data.return_on_assets,
+        return_on_equity=financial_metrics_data.return_on_equity,
+        net_profit_margin=financial_metrics_data.net_profit_margin,
     )
 
-    try:
-        updated_metrics = financial_metrics_service.update_financial_metrics(
-            financial_metrics_id,
-            financial_metrics,
-        )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    updated_metrics = financial_metrics_service.update_financial_metrics(
+        financial_metrics_id,
+        financial_metrics,
+    )
 
     return FinancialMetricsResponse.model_validate(updated_metrics)
 
@@ -138,10 +135,6 @@ def delete_financial_metrics(
 ) -> None:
     """Delete financial metrics."""
 
-    try:
-        financial_metrics_service.delete_financial_metrics(financial_metrics_id)
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    financial_metrics_service.delete_financial_metrics(
+        financial_metrics_id,
+    )

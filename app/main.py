@@ -4,9 +4,11 @@ FastAPI application.
 """
 
 from fastapi import FastAPI
+
 from app.api import api_router, health_router
 from app.config import settings
-from app.core import FRISException, fris_exception_handler, lifespan
+from app.core import lifespan
+from app.core.exception_handlers import register_exception_handlers
 
 app = FastAPI(
     title=settings.app_name,
@@ -14,10 +16,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.add_exception_handler(
-    FRISException,
-    fris_exception_handler,
-)
+# Register global exception handlers
+register_exception_handlers(app)
 
 app.include_router(health_router)
 

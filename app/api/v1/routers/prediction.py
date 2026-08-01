@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from app.api.v1.schemas.prediction import (
     PredictionCreate,
@@ -42,7 +42,9 @@ def create_prediction(
         prediction_metadata=prediction_data.prediction_metadata,
     )
 
-    created_prediction = prediction_service.create_prediction(prediction)
+    created_prediction = prediction_service.create_prediction(
+        prediction,
+    )
 
     return PredictionResponse.model_validate(created_prediction)
 
@@ -50,6 +52,8 @@ def create_prediction(
 @router.get(
     "/{prediction_id}",
     response_model=PredictionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get prediction by ID",
 )
 def get_prediction(
     prediction_id: int,
@@ -59,13 +63,9 @@ def get_prediction(
 ) -> PredictionResponse:
     """Retrieve a prediction."""
 
-    prediction = prediction_service.get_prediction_by_id(prediction_id)
-
-    if prediction is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Prediction not found.",
-        )
+    prediction = prediction_service.get_prediction_by_id(
+        prediction_id,
+    )
 
     return PredictionResponse.model_validate(prediction)
 
@@ -73,6 +73,8 @@ def get_prediction(
 @router.get(
     "",
     response_model=list[PredictionResponse],
+    status_code=status.HTTP_200_OK,
+    summary="Get all predictions",
 )
 def get_predictions(
     prediction_service: PredictionService = Depends(
@@ -83,12 +85,17 @@ def get_predictions(
 
     predictions = prediction_service.get_all_predictions()
 
-    return [PredictionResponse.model_validate(prediction) for prediction in predictions]
+    return [
+        PredictionResponse.model_validate(prediction)
+        for prediction in predictions
+    ]
 
 
 @router.put(
     "/{prediction_id}",
     response_model=PredictionResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Update prediction",
 )
 def update_prediction(
     prediction_id: int,
@@ -108,16 +115,10 @@ def update_prediction(
         prediction_metadata=prediction_data.prediction_metadata,
     )
 
-    try:
-        updated_prediction = prediction_service.update_prediction(
-            prediction_id,
-            prediction,
-        )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    updated_prediction = prediction_service.update_prediction(
+        prediction_id,
+        prediction,
+    )
 
     return PredictionResponse.model_validate(updated_prediction)
 
@@ -125,6 +126,7 @@ def update_prediction(
 @router.delete(
     "/{prediction_id}",
     status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete prediction",
 )
 def delete_prediction(
     prediction_id: int,
@@ -134,10 +136,6 @@ def delete_prediction(
 ) -> None:
     """Delete a prediction."""
 
-    try:
-        prediction_service.delete_prediction(prediction_id)
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    prediction_service.delete_prediction(
+        prediction_id,
+    )

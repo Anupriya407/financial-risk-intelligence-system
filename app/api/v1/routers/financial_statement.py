@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from app.api.v1.schemas.financial_statement import (
     FinancialStatementCreate,
@@ -41,7 +41,9 @@ def create_financial_statement(
         statement_type=financial_statement_data.statement_type,
     )
 
-    created_statement = financial_statement_service.create_financial_statement(financial_statement)
+    created_statement = financial_statement_service.create_financial_statement(
+        financial_statement,
+    )
 
     return FinancialStatementResponse.model_validate(created_statement)
 
@@ -61,15 +63,11 @@ def get_financial_statement(
 ) -> FinancialStatementResponse:
     """Retrieve a financial statement."""
 
-    financial_statement = financial_statement_service.get_financial_statement_by_id(
-        financial_statement_id,
-    )
-
-    if financial_statement is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=(f"Financial statement with ID {financial_statement_id} not found."),
+    financial_statement = (
+        financial_statement_service.get_financial_statement_by_id(
+            financial_statement_id,
         )
+    )
 
     return FinancialStatementResponse.model_validate(financial_statement)
 
@@ -88,9 +86,14 @@ def get_financial_statements(
 ) -> list[FinancialStatementResponse]:
     """Retrieve all financial statements."""
 
-    financial_statements = financial_statement_service.get_all_financial_statements()
+    financial_statements = (
+        financial_statement_service.get_all_financial_statements()
+    )
 
-    return [FinancialStatementResponse.model_validate(statement) for statement in financial_statements]
+    return [
+        FinancialStatementResponse.model_validate(statement)
+        for statement in financial_statements
+    ]
 
 
 @router.put(
@@ -116,16 +119,12 @@ def update_financial_statement(
         statement_type=financial_statement_data.statement_type,
     )
 
-    try:
-        updated_statement = financial_statement_service.update_financial_statement(
+    updated_statement = (
+        financial_statement_service.update_financial_statement(
             financial_statement_id,
             financial_statement,
         )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    )
 
     return FinancialStatementResponse.model_validate(updated_statement)
 
@@ -144,12 +143,6 @@ def delete_financial_statement(
 ) -> None:
     """Delete a financial statement."""
 
-    try:
-        financial_statement_service.delete_financial_statement(
-            financial_statement_id,
-        )
-    except ValueError as exc:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(exc),
-        ) from exc
+    financial_statement_service.delete_financial_statement(
+        financial_statement_id,
+    )
