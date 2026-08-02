@@ -1,0 +1,11 @@
+{
+    "rows_before": 3840312,
+    "rows_after": 3840312,
+    "columns_before": 23,
+    "columns_after": 23,
+    "duplicates_removed": 0,
+    "missing_values_before": 5877356,
+    "missing_values_after": 0,
+    "memory_usage_before": 730049784,
+    "memory_usage_after": 730049784
+}

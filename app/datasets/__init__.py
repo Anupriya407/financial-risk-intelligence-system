@@ -9,6 +9,7 @@ from app.datasets.config import (
     PROJECT_ROOT,
     RAW_DATA_DIR,
 )
+from app.datasets.metadata import DatasetMetadata
 
 __all__ = [
     "PROJECT_ROOT",
@@ -18,4 +19,5 @@ __all__ = [
     "INTERIM_DATA_DIR",
     "EXTERNAL_DATA_DIR",
     "METADATA_DIR",
+    "DatasetMetadata",
 ]

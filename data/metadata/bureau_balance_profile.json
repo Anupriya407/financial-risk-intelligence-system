@@ -1,0 +1,23 @@
+{
+    "shape": [
+        27299925,
+        3
+    ],
+    "columns": [
+        "SK_ID_BUREAU",
+        "MONTHS_BALANCE",
+        "STATUS"
+    ],
+    "dtypes": {
+        "SK_ID_BUREAU": "int64",
+        "MONTHS_BALANCE": "int64",
+        "STATUS": "str"
+    },
+    "missing_values": {
+        "SK_ID_BUREAU": 0,
+        "MONTHS_BALANCE": 0,
+        "STATUS": 0
+    },
+    "duplicate_rows": 0,
+    "memory_usage_bytes": 682498257
+}
