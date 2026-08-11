@@ -28,3 +28,8 @@ ENV/
 .DS_Store
 Thumbs.db
 .aider*
+
+# Local datasets and generated feature artifacts
+data/raw/home_credit/
+data/interim/
+data/processed/features/*.parquet
