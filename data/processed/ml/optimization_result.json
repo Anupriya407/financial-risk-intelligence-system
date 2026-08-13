@@ -1,0 +1,22 @@
+{
+  "model_type": "lightgbm",
+  "best_score": 0.7867104978412849,
+  "best_params": {
+    "model_type": "lightgbm",
+    "lgbm_n_estimators": 652,
+    "lgbm_num_leaves": 125,
+    "lgbm_max_depth": 13,
+    "lgbm_learning_rate": 0.020610134619850732,
+    "lgbm_subsample": 0.9977714496538376,
+    "lgbm_colsample_bytree": 0.8505403558414744
+  },
+  "n_trials": 20,
+  "cv_scores": [
+    0.784206759567138,
+    0.7913061914680511,
+    0.7845528922312209,
+    0.789264583588382,
+    0.784222062351632
+  ],
+  "completed_at": "2026-08-11T18:13:20.097422+00:00"
+}

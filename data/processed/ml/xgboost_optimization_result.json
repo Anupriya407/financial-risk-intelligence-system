@@ -1,0 +1,20 @@
+{
+  "model_type": "xgboost",
+  "best_score": 0.788773248926175,
+  "best_params": {
+    "model_type": "xgboost",
+    "xgb_n_estimators": 671,
+    "xgb_max_depth": 4,
+    "xgb_learning_rate": 0.05748924681991978,
+    "xgb_subsample": 0.836965827544817,
+    "xgb_colsample_bytree": 0.6185801650879991
+  },
+  "n_trials": 20,
+  "cv_scores": [
+    0.785688230717716,
+    0.7923642924102801,
+    0.7873236877681418,
+    0.7916658308283566,
+    0.7868242029063804
+  ]
+}
