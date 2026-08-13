@@ -16,6 +16,12 @@ from app.api.v1.routers.risk_assessment import (
     router as risk_assessment_router,
 )
 
+from app.api.v1.routers.risk_prediction import (
+    router as risk_prediction_router,
+)
+
+
+
 api_router = APIRouter()
 
 api_router.include_router(company_router)
@@ -23,3 +29,4 @@ api_router.include_router(financial_statement_router)
 api_router.include_router(financial_metrics_router)
 api_router.include_router(risk_assessment_router)
 api_router.include_router(prediction_router)
+api_router.include_router(risk_prediction_router)
